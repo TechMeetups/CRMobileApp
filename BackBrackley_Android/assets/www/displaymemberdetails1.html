@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Back Brackley Retaile Store</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/backbrackley-theme.min.css" rel="stylesheet" type="text/css">
+    <link href="css/styles.min.css" rel="stylesheet" type="text/css">
+    <link href="css/icons.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../../../ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/plugins/charts/sparkline.min.js"></script>
+    <script type="text/javascript" src="js/plugins/forms/uniform.min.js"></script>
+    <script type="text/javascript" src="js/plugins/forms/select2.min.js"></script>
+    <script type="text/javascript" src="js/plugins/forms/inputmask.js"></script>
+    <script type="text/javascript" src="js/plugins/forms/autosize.js"></script>
+    <script type="text/javascript" src="js/plugins/forms/inputlimit.min.js"></script>
+    <script type="text/javascript" src="js/plugins/forms/listbox.js"></script>
+    <script type="text/javascript" src="js/plugins/forms/multiselect.js"></script>
+    <script type="text/javascript" src="js/plugins/forms/validate.min.js"></script>
+    <script type="text/javascript" src="js/plugins/forms/tags.min.js"></script>
+    <script type="text/javascript" src="js/plugins/forms/switch.min.js"></script>
+    <script type="text/javascript" src="js/plugins/forms/uploader/plupload.full.min.js"></script>
+    <script type="text/javascript" src="js/plugins/forms/uploader/plupload.queue.min.js"></script>
+    <script type="text/javascript" src="js/plugins/forms/wysihtml5/wysihtml5.min.js"></script>
+    <script type="text/javascript" src="js/plugins/forms/wysihtml5/toolbar.js"></script>
+    <script type="text/javascript" src="js/plugins/interface/daterangepicker.js"></script>
+    <script type="text/javascript" src="js/plugins/interface/fancybox.min.js"></script>
+    <script type="text/javascript" src="js/plugins/interface/moment.js"></script>
+    <script type="text/javascript" src="js/plugins/interface/jgrowl.min.js"></script>
+    <script type="text/javascript" src="js/plugins/interface/datatables.min.js"></script>
+    <script type="text/javascript" src="js/plugins/interface/colorpicker.js"></script>
+    <script type="text/javascript" src="js/plugins/interface/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="js/plugins/interface/timepicker.min.js"></script>
+    <script type="text/javascript" src="js/plugins/interface/collapsible.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/application.js"></script>
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova-2.2.0.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+        $(document).ready(function () {
+            if (sessionStorage.UserId == "") {
+                window.location = "index.html";
+            }
+        });
+
+        function onLoad() {
+            document.addEventListener("deviceready", onDeviceReady, false);
+        }
+        function onDeviceReady() {
+            document.addEventListener("backbutton", onBackKeyDown, false);
+        }
+        function onBackKeyDown() {
+
+            window.location = "barcodescan.html";
+        }
+    </script>
+    <style>
+        .lblDetail
+        {
+            font-size: 10px;
+            font-weight: bold;
+            width:50%;
+            text-align:right;
+        }
+
+        .lblDetailget
+        {
+            font-size: 10px;
+            font-weight: normal;
+            width:auto;
+        }
+
+
+    </style>
+</head>
+<body class="full-width page-condensed" onload="onLoad()">
+    <div class="navbar navbar-inverse" role="navigation" onload="init();">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Back Brackley</a>
+        </div>
+    </div>
+    <form action="displaymemberdetails.html" role="form">
+        <div>
+            <table width="90%" cellpadding="10" cellspacing="10" border="0" style="margin:5%;">
+                <tr>
+                    <td>
+                        <lable class="lblDetail">Customer Name:</lable>
+                    </td>
+                    <td>
+                        <label id="lblcustomerName" class="lblDetailget">Mike Cadden</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <lable class="lblDetail">Current Spend:</lable>
+                    </td>
+                    <td>
+                        <label id="lblCurrentSpend" class="lblDetailget">$12.50</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <lable class="lblDetail">Promotions Available:</lable>
+                    </td>
+                    <td class="lblDetailget">
+                        <input type="radio" name="a1" value="a1">10% of "The Ned"<br>
+                        <input type="radio" name="a2" value="a2">Buy 8 bottels get one free
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <lable class="lblDetail">Notes On This Customer:</lable>
+                    </td>
+                    <td>
+                        <label id="lblNotes" class="lblDetailget">Lorem ipsum dolor site amet, consectetur adipisicing elit, Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Utenim ad minim veniam, quis nostrud</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <lable class="lblDetail">Unit Sold:</lable>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" placeholder=" Unit Sold" id="txtUnitSold">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <lable class="lblDetail">Sale Values(gross)</lable>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" placeholder="Sale Values" id="txtSaleValues">
+                    </td>
+                </tr>
+                 <tr>
+                    <td colspan="2">
+                        <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
+                        <button type="submit" class="btn btn-warning">Ok</button>
+                        &nbsp; &nbsp; &nbsp; 
+                        <button type="submit" class="btn btn-warning">Cancel</button>
+                        
+                    </td>
+                </tr>
+                 <tr>
+                    <td colspan="2">
+                        <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <textarea style="width: 100%;" id="change" class="lblDetailget" placeholder="Promotion Rezult"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Back Brackley Retaile Store</title>
+<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="css/backbrackley-theme.min.css" rel="stylesheet" type="text/css">
+<link href="css/styles.min.css" rel="stylesheet" type="text/css">
+<link href="css/icons.min.css" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../../../ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script type="text/javascript" src="../../../ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/plugins/charts/sparkline.min.js"></script>
+<script type="text/javascript" src="js/plugins/forms/uniform.min.js"></script>
+<script type="text/javascript" src="js/plugins/forms/select2.min.js"></script>
+<script type="text/javascript" src="js/plugins/forms/inputmask.js"></script>
+<script type="text/javascript" src="js/plugins/forms/autosize.js"></script>
+<script type="text/javascript" src="js/plugins/forms/inputlimit.min.js"></script>
+<script type="text/javascript" src="js/plugins/forms/listbox.js"></script>
+<script type="text/javascript" src="js/plugins/forms/multiselect.js"></script>
+<script type="text/javascript" src="js/plugins/forms/validate.min.js"></script>
+<script type="text/javascript" src="js/plugins/forms/tags.min.js"></script>
+<script type="text/javascript" src="js/plugins/forms/switch.min.js"></script>
+<script type="text/javascript" src="js/plugins/forms/uploader/plupload.full.min.js"></script>
+<script type="text/javascript" src="js/plugins/forms/uploader/plupload.queue.min.js"></script>
+<script type="text/javascript" src="js/plugins/forms/wysihtml5/wysihtml5.min.js"></script>
+<script type="text/javascript" src="js/plugins/forms/wysihtml5/toolbar.js"></script>
+<script type="text/javascript" src="js/plugins/interface/daterangepicker.js"></script>
+<script type="text/javascript" src="js/plugins/interface/fancybox.min.js"></script>
+<script type="text/javascript" src="js/plugins/interface/moment.js"></script>
+<script type="text/javascript" src="js/plugins/interface/jgrowl.min.js"></script>
+<script type="text/javascript" src="js/plugins/interface/datatables.min.js"></script>
+<script type="text/javascript" src="js/plugins/interface/colorpicker.js"></script>
+<script type="text/javascript" src="js/plugins/interface/fullcalendar.min.js"></script>
+<script type="text/javascript" src="js/plugins/interface/timepicker.min.js"></script>
+<script type="text/javascript" src="js/plugins/interface/collapsible.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/application.js"></script>
+<script type="text/javascript" src="scripts/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="cordova-2.2.0.js"></script>
+<script type="text/javascript" charset="utf-8">
+
+    $(document).ready(function () {
+        $("#dvProcessing").show();
+            if (sessionStorage.UserId == "") {
+                window.location = "index.html";
+            }
+        });
+
+        function onLoad() {
+            $("#dvProcessing").hide();
+            document.addEventListener("deviceready", onDeviceReady, false);
+        }
+        function onDeviceReady() {
+            document.addEventListener("backbutton", onBackKeyDown, false);
+        }
+        function onBackKeyDown() {
+            $("#dvProcessing").show();
+            window.location = "barcodescan.html";
+        }
+    </script>
+</head>
+<body class="full-width page-condensed" onload="onLoad()">
+<div class="process" id="dvProcessing"></div>
+<!-- Navbar -->
+<div class="navbar navbar-inverse" role="navigation">
+  <div class="navbar-header"> <a class="navbar-brand" href="#">Back Brackley</a></div>
+</div>
+<!-- /navbar -->
+<!-- Login wrapper -->
+<div class="login-wrapper">
+  <form action="displaymemberdetails.html" role="form">
+    <div class="popup-header"><span class="text-semibold">Display Member Details</span> </div>
+    <div class="well">
+    
+      <div class="row">
+        <div class="col-xs-6">
+          <label><strong>Customer Name:</strong></label>
+        </div>
+        <div class="col-xs-6">
+          <label>Mike Cadden</label>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-xs-6">
+          <label><strong>Current Speed:</strong></label>
+        </div>
+        <div class="col-xs-6">
+          <label>$12.50</label>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-xs-6">
+          <label><strong>Promotions Available:</strong></label>
+        </div>
+        <div class="col-xs-6">
+              <label class="radio-inline">
+              <div>
+              <span class="checked"><input type="radio" name="inline-radio" class="styled" checked="checked"></span>
+              </div>
+              10% Off "The Ned"</label>
+              <label class="radio-inline">
+              <div>
+              <span><input type="radio" name="inline-radio" class="styled"></span>
+              </div>
+              Buy 8 Bottles - Get 1 Free</label>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-xs-12">
+          <label><strong>Notes on this customer:</strong></label>
+        </div>
+        <div class="col-xs-12">
+          <label style="text-align:justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</label>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-xs-6">
+          <label><strong>Unit Sold:</strong></label>
+        </div>
+        <div class="col-xs-6">
+          <div class="input-group"><input type="text" class="form-control"><span class="input-group-addon">.00</span></div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-xs-6">
+          <label><strong>Sale Value (Gross):</strong></label>
+        </div>
+        <div class="col-xs-6">
+          <div class="input-group"><input type="text" class="form-control"><span class="input-group-addon">.00</span></div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-xs-6">
+          <button type="submit" class="btn btn-success pull-right">Submit</button></div>
+        <div class="col-xs-6">
+          <button type="reset" class="btn btn-warning pull-left">Cancel</button>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-xs-12">
+          <label><strong>Promotion Result</strong></label>
+        <div class="col-xs-12">
+          <textarea rows="5" cols="5" 
+          class="elastic form-control" placeholder="Elastic textarea" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 102px;"></textarea>
+        </div>
+      </div>
+      
+    </div>
+    </div>
+  </form>
+</div>
+<!-- /login wrapper -->
+<!-- Footer -->
+<!--<div class="footer clearfix">
+  <div class="">&copy; 2014. Back Brackley by <a href="#">Differenz System</a></div>
+</div>-->
+<!-- /footer -->
+</body>
+</html>

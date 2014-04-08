@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Back Brackley Retaile Store</title>
+<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="css/backbrackley-theme.min.css" rel="stylesheet" type="text/css">
+<link href="css/styles.min.css" rel="stylesheet" type="text/css">
+<link href="css/icons.min.css" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/plugins/charts/sparkline.min.js"></script>
+<script type="text/javascript" src="js/plugins/forms/uniform.min.js"></script>
+<script type="text/javascript" src="js/plugins/forms/select2.min.js"></script>
+<script type="text/javascript" src="js/plugins/forms/inputmask.js"></script>
+<script type="text/javascript" src="js/plugins/forms/autosize.js"></script>
+<script type="text/javascript" src="js/plugins/forms/inputlimit.min.js"></script>
+<script type="text/javascript" src="js/plugins/forms/listbox.js"></script>
+<script type="text/javascript" src="js/plugins/forms/multiselect.js"></script>
+<script type="text/javascript" src="js/plugins/forms/validate.min.js"></script>
+<script type="text/javascript" src="js/plugins/forms/tags.min.js"></script>
+<script type="text/javascript" src="js/plugins/forms/switch.min.js"></script>
+<script type="text/javascript" src="js/plugins/forms/uploader/plupload.full.min.js"></script>
+<script type="text/javascript" src="js/plugins/forms/uploader/plupload.queue.min.js"></script>
+<script type="text/javascript" src="js/plugins/forms/wysihtml5/wysihtml5.min.js"></script>
+<script type="text/javascript" src="js/plugins/forms/wysihtml5/toolbar.js"></script>
+<script type="text/javascript" src="js/plugins/interface/daterangepicker.js"></script>
+<script type="text/javascript" src="js/plugins/interface/fancybox.min.js"></script>
+<script type="text/javascript" src="js/plugins/interface/moment.js"></script>
+<script type="text/javascript" src="js/plugins/interface/jgrowl.min.js"></script>
+<script type="text/javascript" src="js/plugins/interface/datatables.min.js"></script>
+<script type="text/javascript" src="js/plugins/interface/colorpicker.js"></script>
+<script type="text/javascript" src="js/plugins/interface/fullcalendar.min.js"></script>
+<script type="text/javascript" src="js/plugins/interface/timepicker.min.js"></script>
+<script type="text/javascript" src="js/plugins/interface/collapsible.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/application.js"></script>
+<script type="text/javascript" src="scripts/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="cordova-2.2.0.js"></script>
+<script language="javascript" type="text/javascript">
+    $(document).ready(function () 
+	{
+        $("#dvProcessing").hide();
+    });
+
+    function onLoad() 
+	{
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
+    function onDeviceReady() 
+	{
+        document.addEventListener("backbutton", onBackKeyDown, false);
+    }
+    function onBackKeyDown()
+	{
+        navigator.app.exitApp();
+    }
+
+	function Validater() 
+	{
+		var Email = document.getElementById('txtusername');
+		var Password = document.getElementById('txtpassword');
+		 if (Email.value == "")
+		   {
+				alert("Please Enter Username");
+				Email.focus();
+				return false;
+			}
+		 if (Password.value == "") 
+		 {
+			alert("Please Enter Password");
+			Password.focus();
+			return false;
+		}
+		if (Email.value != "" && Password.value != "")
+		{
+			if(isValidEmail(Email.value))
+			{
+				login();
+			}
+			else
+			{
+				alert("Please enter valid email address");
+				return false;
+			}
+			
+		}
+	}
+	
+	function login()
+	{	
+		var username = $("#txtusername").val();
+		var password = $("#txtpassword").val();
+		var jsondata = '{"email":"'+username+'","password":"'+password+'"}';
+		
+		$.ajax({  
+			type: "POST",  
+			url: "http://backbrackley.herokuapp.com/api/v1/login.json",  
+			data: jsondata,  
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success: function(rtndata)
+			{
+				if(rtndata.status == true)
+				{
+					document.location.href='barcodescan.html';
+				}
+				else
+				{
+					alert("Username or Password is invalid.");
+				}
+			},
+			error: function(err)
+			{
+				alert("Username or Password is invalid.");
+			}
+		});
+			
+	}
+	
+	function isValidEmail(emailAddress)
+	{
+    	var emailRegEx = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    
+    	if (emailAddress.search(emailRegEx) == -1) 
+		{
+      	  return false;
+   		}
+    	else 
+		{
+        	return true;
+	    }
+	}
+</script>
+
+</head>
+<body class="full-width page-condensed" onload="onLoad()">
+<div class="process" id="dvProcessing"></div>
+<!-- Navbar -->
+<div class="navbar navbar-inverse" role="navigation">
+  <div class="navbar-header">
+    <a class="navbar-brand" href="#">Back Brackley</a></div>
+</div>
+<!-- /navbar -->
+<!-- Login wrapper -->
+<div class="login-wrapper">
+  <form action="#" role="form">
+    <div class="popup-header"><span class="text-semibold">User Login</span>
+    </div>
+    <div class="well">
+      <div class="form-group has-feedback">
+        <label>Username</label>
+        <input type="text" class="form-control" id="txtusername" placeholder="Username">
+        <i class="icon-users form-control-feedback"></i></div>
+      <div class="form-group has-feedback">
+        <label>Password</label>
+        <input type="password" class="form-control" id="txtpassword" placeholder="Password">
+        <i class="icon-lock form-control-feedback"></i></div>
+      <div class="row form-actions">
+        <div class="col-xs-6">
+          <div class="checkbox checkbox-success">
+            <label>
+              <input type="checkbox" class="styled">
+              Remember me</label>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <button type="submit" class="btn btn-warning pull-right" onClick="javascript:Validater();">Sign in</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- /login wrapper -->
+<!-- Footer -->
+<!--<div class="footer clearfix">
+  <div class="">&copy; 2014. Back Brackley by <a href="#">Differenz System</a></div>
+</div>-->
+<!-- /footer -->
+</body>
+</html>
