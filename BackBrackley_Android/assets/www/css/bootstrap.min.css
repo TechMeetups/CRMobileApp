@@ -1492,7 +1492,8 @@ input[type=date] {
 }
 .radio-inline+.radio-inline, .checkbox-inline+.checkbox-inline {
 	margin-top:0;
-	margin-left:10px
+	/*margin-left:10px;*/
+  
 }
 input[type=radio][disabled], input[type=checkbox][disabled], .radio[disabled], .radio-inline[disabled], .checkbox[disabled], .checkbox-inline[disabled], fieldset[disabled] input[type=radio], fieldset[disabled] input[type=checkbox], fieldset[disabled] .radio, fieldset[disabled] .radio-inline, fieldset[disabled] .checkbox, fieldset[disabled] .checkbox-inline {
 	cursor:not-allowed
@@ -4342,7 +4343,7 @@ button.close {
 .modal-open {
 	overflow:hidden
 }
-.modal {
+/*.modal {
 	display:none;
 	overflow:auto;
 	overflow-y:scroll;
@@ -4354,6 +4355,16 @@ button.close {
 	z-index:1050;
 	-webkit-overflow-scrolling:touch;
 	outline:0
+}*/
+.modal
+{
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba( 255, 255, 255, .8 ) url('../images/pIkfp.gif') 50% 50% no-repeat;
 }
 .modal.fade .modal-dialog {
 	-webkit-transform:translate(0, -25%);
@@ -4725,18 +4736,14 @@ transition:.6s ease-in-out left
 	text-shadow:0 1px 2px rgba(0, 0, 0, .6)
 }
 .carousel-control.left {
-	background-image:-webkit-linear-gradient(left, color-stop(rgba(0, 0, 0, .5) 0), color-stop(rgba(0, 0, 0, .0001) 100%));
-	background-image:linear-gradient(to right, rgba(0, 0, 0, .5) 0, rgba(0, 0, 0, .0001) 100%);
-	background-repeat:repeat-x;
-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1)
+	background-repeat: repeat-x;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, .5) 0, rgba(0, 0, 0, .0001) 100%);
 }
 .carousel-control.right {
 	left:auto;
 	right:0;
-	background-image:-webkit-linear-gradient(left, color-stop(rgba(0, 0, 0, .0001) 0), color-stop(rgba(0, 0, 0, .5) 100%));
-	background-image:linear-gradient(to right, rgba(0, 0, 0, .0001) 0, rgba(0, 0, 0, .5) 100%);
-	background-repeat:repeat-x;
-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1)
+	background-repeat: repeat-x;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, .0001) 0, rgba(0, 0, 0, .5) 100%);
 }
 .carousel-control:hover, .carousel-control:focus {
 	outline:0;

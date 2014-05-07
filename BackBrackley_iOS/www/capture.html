@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Back Brackley Retaile Store</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/backbrackley-theme.min.css" rel="stylesheet" type="text/css">
+    <link href="css/styles.min.css" rel="stylesheet" type="text/css">
+    <link href="css/icons.min.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova-2.2.0.js"></script>
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            $("#dvProcessing").hide();
+        });
+
+        function onLoad() {
+            document.addEventListener("deviceready", onDeviceReady, false);
+        }
+        function onDeviceReady() {
+            document.addEventListener("backbutton", onBackKeyDown, false);
+        }
+        function onBackKeyDown() {
+            window.location.href = "index.html";
+        }
+        function RedirectToBarcode() {
+            console.log("aa");
+            $("#dvProcessing").show();
+            window.location.href = 'barcodescan.html';
+
+        }
+        function RedirectToHome() {
+            sessionStorage.clear();
+            $("#dvProcessing").show();
+            window.location.href = 'index.html';
+        }
+
+    </script>
+
+</head>
+<body class="full-width page-condensed" onload="onLoad()">
+    <div class="modal" id="dvProcessing"></div>
+    <!-- Navbar -->
+    <div class="navbar navbar-inverse" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Back Brackley</a>
+        </div>
+    </div>
+    <!-- /navbar -->
+    <!-- Login wrapper -->
+    <div class="login-wrapper">
+        <form role="form">
+            <div class="popup-header">
+                <span class="text-semibold">User Capture</span>
+            </div>
+            <div class="well" style="padding: 20px;">
+                <div class="row form-actions">
+                    <button type="button" class="btn btn-warning pull-right" style="width: 100% !important" onclick="RedirectToBarcode()">Capture</button>
+                </div>
+            </div>
+            <div style="height: 40px"></div>
+            <div class="popup-header">
+                <button type="button" class="btn btn-warning pull-right" style="width: 100% !important" onclick="RedirectToHome()">Logout</button>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>

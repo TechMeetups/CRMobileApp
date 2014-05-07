@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta name="viewport" content="width=320; user-scalable=no" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title></title>
+    <link rel="stylesheet" href="style/jquery.mobile-1.2.0.min.css" />
+    <script src="scripts/jquery.js" type="text/javascript"></script>
+    <script src="scripts/jquery.mobile-1.2.0.min.js" type="text/javascript"></script>
+    <script src="scripts/makememories.js" type="text/javascript"></script>
+    <link rel="Stylesheet" href="style/MyTheme.min.css" />
+    <link rel="Stylesheet" href="style/makememories.css" />
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" src="js/barcodescanner.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+        $(document).ready(function () {
+        });
+
+        function onLoad() {
+            $("#dvProcessing").show();
+            document.addEventListener("deviceready", onDeviceReady, false);
+        }
+        function onDeviceReady() {
+            document.addEventListener("backbutton", onBackKeyDown, false);
+            $("#dvProcessing").show();
+            ScannerBarcodeCommand();
+
+        }
+        function onBackKeyDown() {
+            $("#dvProcessing").show();
+			
+            window.location = "capture.html";
+        }
+
+
+function ScannerBarcodeCommand()
+{
+    //,["scannerOverlay"]
+   
+    window.plugins.barcodeScanner.scan(
+                                function (result)
+                                {
+                                    if (result.cancelled === true)
+                                    {
+                                       alert("The scan was cancelled");
+                                       $("#dvProcessing").hide();
+                                       window.location= "capture.html";
+                                    }
+                                    else
+                                    {
+                                        $("#dvProcessing").hide();
+                                        sessionStorage.setItem("bar_code",result.text);
+                                        window.location= "displaymemberdetails.html";
+                                    }
+                                },
+                                function (error)
+                                {
+                                    alert("Failed to scan barcode: " + error);
+                                    $("#dvProcessing").hide();
+                                });      
+}
+    
+    </script>
+</head>
+<body onload="onLoad();" id="stage" class="theme">
+    <div class="modal" id="dvProcessing"></div>
+    <div data-role="page" data-theme="a">
+        <div style="width: 100%; text-align: center;">
+        </div>
+    </div>
+</body>
+</html>

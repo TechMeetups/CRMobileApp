@@ -10,46 +10,45 @@
     <script src="scripts/makememories.js" type="text/javascript"></script>
     <link rel="Stylesheet" href="style/MyTheme.min.css" />
     <link rel="Stylesheet" href="style/makememories.css" />
-    <script type="text/javascript" charset="utf-8" src="barcodescanner.js"></script>    
-<script type="text/javascript" src="scripts/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="barcodescanner.js"></script>
+    <script type="text/javascript" src="scripts/jquery.js"></script>
     <script type="text/javascript" charset="utf-8" src="cordova-2.2.0.js"></script>
     <script type="text/javascript" charset="utf-8">
 
         $(document).ready(function () {
-		
         });
 
         function onLoad() {
             $("#dvProcessing").show();
-            document.addEventListener("deviceready", onDeviceReady, false);           
+            document.addEventListener("deviceready", onDeviceReady, false);
         }
         function onDeviceReady() {
             document.addEventListener("backbutton", onBackKeyDown, false);
-            $("#dvProcessing").hide();
+            $("#dvProcessing").show();
             window.plugins.barcodeScanner.scan(function (result) {
-                var user = result.text
-                sessionStorage.UserId = user;
-                if (sessionStorage.UserId != "") {
-                    alert(sessionStorage.UserId);
-                }
-                $("#dvProcessing").show();
-                window.location = "displaymemberdetails.html";
-
+                //alert(result.text);
+                var bar_code = result.text;
+                if (bar_code != "") {
+                    sessionStorage.setItem("bar_code", bar_code);
+                    window.location = "displaymemberdetails.html";
+                } else { window.location = "capture.html"; }
             }, function (error) {
                 alert("Scanning failed: " + error);
+                window.location = "capture.html";
             });
-                     
+
         }
         function onBackKeyDown() {
             $("#dvProcessing").show();
-            window.location = "index.html";
+
+            window.location = "capture.html";
         }
 
-     
+
     </script>
 </head>
 <body onload="onLoad();" id="stage" class="theme">
-<div class="process" id="dvProcessing"></div>
+    <div class="modal" id="dvProcessing"></div>
     <div data-role="page" data-theme="a">
         <div style="width: 100%; text-align: center;">
         </div>
