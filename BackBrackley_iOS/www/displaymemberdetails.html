@@ -57,23 +57,29 @@
                         $("#lblcurrentspend").text("£" + rtndata.current_spend);
                         $("#lblnotes").text(rtndata.notes);
                         var offer = rtndata.promotion_offer.split("}");
+						
                         console.log(offer);
                         var html = "";
-                        if (offer.length == 2) {
+						
+                        if (offer.length >= 2) {
                             var offer = rtndata.promotion_offer.split("}");
                         } else { var offer = rtndata.promotion_offer.split("},"); }
                         for (var i = 0 ; i < offer.length; i++) {
                             var len = offer[i];
-
+							
                             if (len.length > 0) {
                                 //if (
                                 //offer[i].replace("{", ",{").toString();
                                 //console.log("a");
                                 //console.log(offer[i]);
 
-                                var offerarray1 = offer[i].replace("{", "");
+                                //var offerarray1 = offer[i].replace("{", "");
+								var offerarray1 = offer[i].replace(",{", "");
+								offerarray1 = offerarray1.replace("{", "");
                                 console.log(offerarray1);
                                 var offerarray2 = offerarray1.replace("}", "");
+								
+								
                                 arr = offerarray2.split('|');
                                 str2 = arr[arr.length - 1];
                                 var d1 = offerarray2.split("|", 2);
@@ -107,7 +113,7 @@
                                 var valid = false;
                                 //console.log(Currentdate);
                                 // console.log(d.getFullYear().toString().substring(2,4));
-
+								
                                 if (digitval[0] == "Discount") {
                                     var str = str2.split(",");
                                     var amount_off_value = "";
@@ -161,7 +167,8 @@
                                     d.setMilliseconds(0);
                                     var monthNames = ["January", "February", "March", "April", "May", "June",
                                                       "July", "August", "September", "October", "November", "December"];
-                                    var newstartdt = new Date(partstartdate[0] + "-" + monthNames[parseInt(partstartdate[1]) - 1] + "-" + "20" + partstartdate[2] + " " + partsstarttime[0] + ":" + partsstarttime[1]);
+                                    //var newstartdt = new Date(partstartdate[0] + "-" + monthNames[parseInt(partstartdate[1]) - 1] + "-" + "20" + partstartdate[2] + " " + partsstarttime[0] + ":" + partsstarttime[1]);
+									var newstartdt = new Date(partstartdate[0] + "-" + monthNames[parseInt(partstartdate[1]) - 1] + "-" + "20" + partstartdate[2] + " 00:01" );
 
 
                                     // End Date Start
@@ -170,8 +177,10 @@
                                     var partEnddate = part1enddate.split('/');
                                     var part2enddate = partsenddate[2];//.splice(':');
                                     var partsEndtime = part2enddate.split(':');
-                                    var newsenddt = new Date(partEnddate[0] + "-" + monthNames[parseInt(partEnddate[1]) - 1] + "-" + "20" + partEnddate[2] + " " + partsEndtime[0] + ":" + partsEndtime[1]);
-                                    console.log("end date " + partEnddate[0] + "-" + monthNames[parseInt(partEnddate[1]) - 1] + "-" + "20" + partEnddate[2] + " " + partsEndtime[0] + ":" + partsEndtime[1]);
+                                    //var newsenddt = new Date(partEnddate[0] + "-" + monthNames[parseInt(partEnddate[1]) - 1] + "-" + "20" + partEnddate[2] + " " + partsEndtime[0] + ":" + partsEndtime[1]);
+									var newsenddt = new Date(partEnddate[0] + "-" + monthNames[parseInt(partEnddate[1]) - 1] + "-" + "20" + partEnddate[2] + " 23:59" );
+                                    
+									console.log("end date " + partEnddate[0] + "-" + monthNames[parseInt(partEnddate[1]) - 1] + "-" + "20" + partEnddate[2] + " " + partsEndtime[0] + ":" + partsEndtime[1]);
 
                                     console.log("surrent date " + d);
                                     console.log(newstartdt);
@@ -181,6 +190,8 @@
                                     console.log("surrent date " + d.getMilliseconds());
                                     console.log(newstartdt.getMilliseconds());
                                     console.log(newsenddt.getMilliseconds());
+									
+									
                                     if (d >= newstartdt && d <= newsenddt) {
                                         valid = true;
 
@@ -190,15 +201,19 @@
                                     //   console.log(str2);
                                 }
                                 if (digitval[0] == "Free") {
+									
                                     str2 = arr[arr.length - 1];
-                                    var str = str2.split(",");
+                                   
+									var str = str2.split(",");
                                     str2 = "";
                                     var promo_type_val = "";
                                     var free_product = "";
                                     for (var i = 0; i < str.length; i++) {
+									
                                         var str3 = str[i].split("=");
                                         for (var j1 = 0; j1 < str3.length; j1++) {
-                                            if (str3[j1].trim() == "promotiontype2_id") {
+                                            
+											if (str3[j1].trim() == "promotiontype2_id") {
                                                 sessionStorage.setItem("promotiontype2_id", str3[j1 + 1]);
                                             }
                                             if (str3[j1].trim() == "promo_type_val") {
@@ -237,7 +252,8 @@
                                     var partstartdate = part1.split('/');
                                     var part2 = parts[2];//.splice(':');
                                     var partsstarttime = part2.split(':');
-                                    var newstartdt = new Date(partstartdate[0] + "-" + monthNames[parseInt(partstartdate[1]) - 1] + "-" + "20" + partstartdate[2] + " " + partsstarttime[0] + ":" + partsstarttime[1]);
+                                    //var newstartdt = new Date(partstartdate[0] + "-" + monthNames[parseInt(partstartdate[1]) - 1] + "-" + "20" + partstartdate[2] + " " + partsstarttime[0] + ":" + partsstarttime[1]);
+									var newstartdt = new Date(partstartdate[0] + "-" + monthNames[parseInt(partstartdate[1]) - 1] + "-" + "20" + partstartdate[2] + " 00:01");
 
                                     // Start Date End
 
@@ -251,11 +267,12 @@
                                     var partsEndtime = part2enddate.split(':');
                                     var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-                                    var newsenddt = new Date(partEnddate[0] + "-" + monthNames[parseInt(partEnddate[1]) - 1] + "-" + "20" + partEnddate[2] + " " + partsEndtime[0] + ":" + partsEndtime[1]);
+                                    //var newsenddt = new Date(partEnddate[0] + "-" + monthNames[parseInt(partEnddate[1]) - 1] + "-" + "20" + partEnddate[2] + " " + partsEndtime[0] + ":" + partsEndtime[1]);
+									var newsenddt = new Date(partEnddate[0] + "-" + monthNames[parseInt(partEnddate[1]) - 1] + "-" + "20" + partEnddate[2] + " 23:59");
 
                                     console.log("new end date " + newsenddt);
                                     // End Date End
-
+								
                                     if (d >= newstartdt && d <= newsenddt) {
                                         valid = true;
                                         console.log("your date is valid");
@@ -264,7 +281,7 @@
                                         console.log("not valid");
                                     }
                                 }
-
+								
                                 if (valid == true) {
                                     html += "<label class=\"radio-inline\"> <div  width=\"60% !important\">  <span class=\"checked\"> <input type=\"radio\"  name=\"inline-radio\" class=\"styled check\"  value=\"" + Combine + "\" onclick=\"GetRadioValue('" + Combine + "');\"></span>";
                                     html += "</div>";
@@ -308,12 +325,25 @@
 
                 console.log(sessionStorage.getItem("promotiontype1_id"));
                 sessionStorage.setItem("promotiontype2_id", "0");
+                
+                var totalval ;
                 if (parseFloat(salevalue) >= parseFloat(sessionStorage.getItem("amount_off_value"))) {
-                    var totalval = salevalue - (salevalue * (parseFloat(sessionStorage.getItem("amount_off_percent")) / 100));
+                    totalval = salevalue - (salevalue * (parseFloat(sessionStorage.getItem("amount_off_percent")) / 100));
                     $("#textareapromotionresult").text("Your total cost  is  £" + totalval + "");
                     sessionStorage.setItem("totalval", totalval);
                 } else {
-                    $("#textareapromotionresult").text("");
+                    //$("#textareapromotionresult").text("");
+					if($("#txtsalevalue").val()>0)
+					{
+						totalval = salevalue - (salevalue * (parseFloat(sessionStorage.getItem("amount_off_percent")) / 100));
+						$("#textareapromotionresult").text("Your total cost  is  £" + totalval + "");
+						sessionStorage.setItem("totalval", totalval);
+					}
+					else
+					{
+						$("#textareapromotionresult").text("");
+					}
+						
                 }
             }
             //else if (digitval[0] == "Free") {
