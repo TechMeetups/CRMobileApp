@@ -19,7 +19,7 @@
 
 
     <script type="text/javascript" charset="utf-8" src="cordova-2.2.0.js"></script>
-    <script type="text/javascript" charset="utf-8">
+    <script type="text/javascript" charset="utf-8"> 
         $(document).ready(function () {
             $("#dvProcessing").show();
             GetCustomerdetail();
@@ -57,6 +57,8 @@
                         $("#lblcurrentspend").text("£" + rtndata.current_spend);
                         $("#lblnotes").text(rtndata.notes);
                         var offer = rtndata.promotion_offer.split("}");
+						
+						var date_filter = "false"
 						
                         console.log(offer);
                         var html = "";
@@ -113,7 +115,7 @@
                                 var valid = false;
                                 //console.log(Currentdate);
                                 // console.log(d.getFullYear().toString().substring(2,4));
-								
+								 date_filter = "false";
                                 if (digitval[0] == "Discount") {
                                     var str = str2.split(",");
                                     var amount_off_value = "";
@@ -151,6 +153,11 @@
                                                 end_date = str3[j + 1];
 
                                             }
+											if (str3[j].trim() == "date_limited") {
+                                                date_filter = str3[j + 1];
+
+                                            }
+											
 
                                         }
 
@@ -191,8 +198,9 @@
                                     console.log(newstartdt.getMilliseconds());
                                     console.log(newsenddt.getMilliseconds());
 									
-									
-                                    if (d >= newstartdt && d <= newsenddt) {
+								
+                                    if ((d >= newstartdt && d <= newsenddt) || date_filter != "true") 
+									{
                                         valid = true;
 
                                     } else {
@@ -238,6 +246,10 @@
                                                 end_date = str3[j1 + 1];
 
                                             }
+											if (str3[j1].trim() == "date_limited") {
+                                                date_filter = str3[j1 + 1];
+
+                                            }
                                         }
                                     }
                                     var monthNames = ["January", "February", "March", "April", "May", "June",
@@ -272,8 +284,8 @@
 
                                     console.log("new end date " + newsenddt);
                                     // End Date End
-								
-                                    if (d >= newstartdt && d <= newsenddt) {
+									
+                                    if ((d >= newstartdt && d <= newsenddt)|| date_filter != "true") {
                                         valid = true;
                                         console.log("your date is valid");
                                     } else {
