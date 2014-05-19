@@ -25,41 +25,43 @@
             GetCustomerdetail();
         });
 
-        function GetCustomerdetail()
-         {
-        
+        function GetCustomerdetail() {
             //var businessid = 2;
-           
+            // alert(sessionStorage.getItem("business_id") + "   " + sessionStorage.getItem("bar_code"));
             // var jsondata = '{"business_id":"' + businessid + '"}';
             $("#dvProcessing").show();
             $("#displaydiv").css("display", "none");
             var barcode = sessionStorage.getItem("bar_code");
-            
-
-            //var jsondata = '{"business_id":"22","bar_code":"6789"}';
-			var jsondata = '{"business_id":"' + sessionStorage.getItem("business_id") + '","bar_code":"' + barcode + '"}';
-            $.ajax({
+			
+			
+            var jsondata = '{"business_id":"' + sessionStorage.getItem("business_id") + '","bar_code":"' + barcode + '"}';
+            //Fazil
+			jsondata = '{"business_id":"3","bar_code":"1234"}';
+			$.ajax({
                 type: "POST",
                 url: "http://backbrackley.herokuapp.com/api/v1/customer_details.json",
                 data: jsondata,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (rtndata) {
-                    //rtndata = '\{"name": "hitesh","current_spend": "50000","notes": "I am very happy to joined this", "promotion_offer": "{Discount|5|  10% off all guiters in store},{Free|1-10| Buy 10 coke tin and get 1 free}"}';
-                    //rtndata = '{"name":"Mike","current_spend":"40000","notes":"Hi every one, Backbackly is the place where you can get many offer. ","promotion_offer":"{Discount|5| amount_off_type = 1,amount_off_percent = 10,amount_off_value = 25.0,amount_off_product = },{Free|1-10| promo_type_val = 10, free_product = 1}"}';
-                    //rtndata = '{"name": "Mike_user","current_spend": "500","notes": "i would like to say thanks to you for provide me this apportunity","promotion_offer": "{Discount|5| promo_active = true, amount_off_type = 1,amount_off_percent = 10,amount_off_value = 25.0,amount_off_product = ,promo_name= 10% off all guiters in store,start_date = 22/04/14 00:04,end_date= 22/05/14 00:05},{Free|1-10| promo_active = true, promo_type_val = 10, free_product = 1,promo_name= buy 10 get one free,start_date = 20/03/14 00:03,end_date= 25/05/14 00:05}","user_id": 1}';
-                    //rtndata = '{"name": "Mike_user","current_spend": "500","notes": "i would like to say thanks to you for provide me this apportunity","promotion_offer": "{Discount|5| promotiontype1_id= 4,promo_active = true, amount_off_type = 1,amount_off_percent = 10,amount_off_value = 25.0,amount_off_product = ,promo_name= 10% off all guiters in store,start_date = 23/04/14 00:04,end_date= 03/05/14 19:06},{Free|1-10| promotiontype2_id= 6, promo_active = true,promo_type_val = 10, free_product = 1,promo_name= buy 10 get one free,start_date = 20/03/14 00:03,end_date= 30/05/14 00:05}","user_id": 1}';
-
-                    //rtndata = '{"name": "Mike_user","current_spend": "500","notes": "i would like to say thanks to you for provide me this apportunity",  "promotion_offer": "{Discount|5| promotiontype1_id= 7,promo_active = true, amount_off_type = 1,amount_off_percent = 10,amount_off_value = 25.0,amount_off_product = 1,promo_name= 20 % off,start_date = 01/05/14 00:05,end_date= 03/05/14 00:05}","user_id": 1}';
-
-                    //var rtndata = JSON.parse(rtndata);
-                    // alert(rtndata.user_id );
-                    if (rtndata.user_id != "0") {
+                   
+					
+                    if (rtndata.customer_details.user_id != "0") {
                         $("#displaydiv").css("display", "block");
-                        sessionStorage.setItem("user_id", rtndata.user_id);
+                        sessionStorage.setItem("user_id", rtndata.customer_details.user_id);
                         $("#lblname").text(rtndata.name);
-                        $("#lblcurrentspend").text("£" + rtndata.current_spend);
-                        $("#lblnotes").text(rtndata.notes);
+                        $("#lblcurrentspend").text("£" + rtndata.customer_details.current_spend);
+                        $("#lblnotes").text(rtndata.customer_details.notes);
+						
+						
+						
+						for(cnt=0;cnt<rtndata.promotion_type_1.length;cnt++)
+						{
+					
+							var obj = rtndata.promotion_type_1[cnt];
+							alert(obj);
+						}
+												
                         var offer = rtndata.promotion_offer.split("}");
 						
 						var date_filter = "false"
@@ -68,13 +70,10 @@
                         var html = "";
 						
                         if (offer.length >= 2) {
-							
                             var offer = rtndata.promotion_offer.split("}");
                         } else { var offer = rtndata.promotion_offer.split("},"); }
-                       
-						for (var icnt = 0 ; icnt < offer.length; icnt++) {
-                          
-							var len = offer[icnt];
+                        for (var i = 0 ; i < offer.length; i++) {
+                            var len = offer[i];
 							
                             if (len.length > 0) {
                                 //if (
@@ -83,7 +82,7 @@
                                 //console.log(offer[i]);
 
                                 //var offerarray1 = offer[i].replace("{", "");
-								var offerarray1 = offer[icnt].replace(",{", "");
+								var offerarray1 = offer[i].replace(",{", "");
 								offerarray1 = offerarray1.replace("{", "");
                                 console.log(offerarray1);
                                 var offerarray2 = offerarray1.replace("}", "");
@@ -136,23 +135,17 @@
                                             //  console.log(str3[j]);
                                             if (str3[j].trim() == "promotiontype1_id") {
                                                 sessionStorage.setItem("promotiontype1_id", str3[j + 1]);
-												Combine = Combine + '|' + str3[j + 1];
 
                                             }
 
                                             //alert(sessionStorage.getItem("promotiontype1_id"));
-											
-											 if (str3[j].trim() == "amount_off_value") {
-                                                sessionStorage.setItem("amount_off_value", str3[j + 1]);
-												Combine = Combine + '|' + str3[j + 1];
-												
-                                            }
 
                                             if (str3[j].trim() == "amount_off_percent") {
                                                 sessionStorage.setItem("amount_off_percent", str3[j + 1]);
-												Combine = Combine + '|' + str3[j + 1];
                                             }
-                                           
+                                            if (str3[j].trim() == "amount_off_value") {
+                                                sessionStorage.setItem("amount_off_value", str3[j + 1]);
+                                            }
                                             if (str3[j].trim() == "promo_name") {
                                                 str2 = str3[j + 1];
                                             }
@@ -236,18 +229,15 @@
                                             
 											if (str3[j1].trim() == "promotiontype2_id") {
                                                 sessionStorage.setItem("promotiontype2_id", str3[j1 + 1]);
-												Combine = Combine + '|' + str3[j1 + 1];
                                             }
                                             if (str3[j1].trim() == "promo_type_val") {
                                                 sessionStorage.setItem("promo_type_val", str3[j1 + 1]);
                                                 //   console.log(sessionStorage.getItem("promo_type_val"));
                                                 // str2 += "buy " + str3[j1 + 1] + " product & get ";
-												Combine = Combine + '|' + str3[j1 + 1];
                                             }
 
                                             if (str3[j1].trim() == "free_product") {
                                                 sessionStorage.setItem("free_product", str3[j1 + 1]);
-												Combine = Combine + '|' + str3[j1 + 1];
                                                 //  str2 += str3[j1 + 1] + " free";
                                             }
                                             if (str3[j1].trim() == "promo_name") {
@@ -308,24 +298,19 @@
                                         valid = false;
                                         console.log("not valid");
                                     }
-									
-									
                                 }
 								
                                 if (valid == true) {
-								
                                     html += "<label class=\"radio-inline\"> <div  width=\"60% !important\">  <span class=\"checked\"> <input type=\"radio\"  name=\"inline-radio\" class=\"styled check\"  value=\"" + Combine + "\" onclick=\"GetRadioValue('" + Combine + "');\"></span>";
                                     html += "</div>";
 
                                     html += str2;
                                     html += "</label><br/>";
                                 }
-								
                             }
 
 
                             $("#dvProcessing").hide();
-							
                         }
                     } else {
                         $("#dvProcessing").hide();
@@ -345,7 +330,6 @@
         }
         function GetRadioValue(radioval) {
             radioval = $(".check:checked").val();
-			
             //console.log(radioval);
             var digitval = radioval.split("|");
             var unitsold = $("#txtunitsold").val();
@@ -359,13 +343,6 @@
 
                 console.log(sessionStorage.getItem("promotiontype1_id"));
                 sessionStorage.setItem("promotiontype2_id", "0");
-				sessionStorage.setItem("promotiontype1_id", digitval[2]);
-				
-				sessionStorage.setItem("amount_off_value", digitval[4]);
-				sessionStorage.setItem("amount_off_percent", digitval[3]);
-				
-				sessionStorage.setItem("TtUnitsSold", unitsold);
-				
                 
                 var totalval ;
                 if (parseFloat(salevalue) >= parseFloat(sessionStorage.getItem("amount_off_value"))) {
@@ -382,7 +359,7 @@
 					}
 					else
 					{
-						$("#textareapromotionresult").text(" ");
+						$("#textareapromotionresult").text("");
 					}
 						
                 }
@@ -400,24 +377,16 @@
             if (digitval[0] == "Free") {
 
                 sessionStorage.setItem("promotiontype1_id", "0");
-				sessionStorage.setItem("promotiontype2_id", digitval[2]);
-				sessionStorage.setItem("promo_type_val", digitval[3]);
-				sessionStorage.setItem("free_product", digitval[4]);
-				
-				
 
                 var promo_type_val = "";
                 var free_product = "";
                 var freeval = digitval[1].split("-");
                 var free = freeval[1];
-				totalval = salevalue;
-				sessionStorage.setItem("totalval", totalval);
                 //console.log(sessionStorage.getItem("promo_type_val"));
                 if (parseInt(unitsold) >= parseInt(sessionStorage.getItem("promo_type_val"))) {
                     $("#textareapromotionresult").text("You get free " + sessionStorage.getItem("free_product") + " item.");
-					sessionStorage.setItem("TtUnitsSold", (parseInt( unitsold) + parseInt(sessionStorage.getItem("free_product"))));
                 } else {
-                    $("#textareapromotionresult").text(" ");
+                    $("#textareapromotionresult").text("");
                 }
             }
         }
@@ -463,16 +432,15 @@
             $("#dvProcessing").show();
             var business_id = sessionStorage.getItem("business_id");
             var bar_code = sessionStorage.getItem("bar_code");
-            var unit_sold =  sessionStorage.getItem("TtUnitsSold");    //$("#txtunitsold").val();
+            var unit_sold = $("#txtunitsold").val();
             var sale_value = sessionStorage.getItem("totalval");//$("#txtsalevalue").val();
             var promotion_offer = $("#textareapromotionresult").val();
             var user_id = sessionStorage.getItem("user_id");
             var promotiontype1_id = sessionStorage.getItem("promotiontype1_id");
-            var promotiontype2_id = sessionStorage.getItem("promotiontype2_id"); 
+            var promotiontype2_id = sessionStorage.getItem("promotiontype2_id");
 
             var jsondata = '{"business_id":"' + business_id + '","user_id":"' + user_id + '","sale_value":"' + sale_value + '","promotion_offer":"' + promotion_offer + '","unit_sold":"' + unit_sold + '","bar_code":"' + bar_code + '","promotiontype1_id":"' + promotiontype1_id + '","promotiontype2_id":"' + promotiontype2_id + '"}';
-		
-			console.log(jsondata);
+            console.log(jsondata);
             $.ajax({
                 type: "POST",
                 url: "http://backbrackley.herokuapp.com//api/v1/transaction.json",
